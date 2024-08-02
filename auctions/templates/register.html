@@ -1,0 +1,30 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}Register - CS50 Auctions{% endblock %}
+
+{% block body %}
+    <h2>Register</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <p class="form-group">
+            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+        </p>
+        <p class="form-group">
+            <input class="form-control" type="email" name="email" placeholder="Email Address">
+        </p>
+        <p class="form-group">
+            <input class="form-control" type="password" name="password" placeholder="Password">
+        </p>
+        <p class="form-group">
+            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+        </p>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+
+    Already have an account? <a href="{% url 'login' %}">Log In.</a>
+{% endblock %}
