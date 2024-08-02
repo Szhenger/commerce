@@ -1,0 +1,70 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}Listings - CS50 Auctions{% endblock %}
+
+{% block body %}
+    <h2>Listing: {{ listing.title }}</h2>
+    <div>
+        {% if not listing.is_active %}
+            {% if user.username == listing.price.bidder.username %}
+                <div class="alert alert-success" role="alert">{{ alert }}</div>
+            {% else %}
+                <div class="alert alert-danger" role="alert">{{ alert }}</div>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div>
+        {% if user.is_authenticated %}
+            {% if in_list %}
+                <a href="{% url 'remove' id=listing.id %}" class="btn btn-secondary btn-sm">Remove from Watchlist</a>
+            {% else %}
+                <a href="{% url 'add' id=listing.id %}" class="btn btn-secondary btn-sm">Add to Watchlist</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    <p>
+        <img src="{{ listing.image }}" alt="{{ listing.title}}">
+        <p>{{ listing.description }}</p>
+        <h3>${{ listing.price }}</h3>
+        {% if listing.is_active %}
+            {% if is_seller %}
+                <a href="{% url 'close' id=listing.id %}" class="btn btn-danger">Close Listing</a>
+            {% endif %}
+        {% endif %}
+    </p>
+    {% if listing.is_active %}
+        <p>
+            <form action="{% url 'bid' id=listing.id %}" method="post">
+                {% csrf_token %}
+                <p class="form-group">
+                    <label for="bid">Bid</label>
+                    <input class="form-control" type="number" name="bid" id="bid" placeholder="Enter Bid" step="0.01">
+                </p>
+                <button class="btn btn-primary" type="submit">Place Bid</button>
+            </form>
+        </p>
+    {% endif %}
+    <h4>Details</h4>
+    <ul>
+        <li>Listed by: {{ listing.seller }}</li>
+        <li>Category: {{ listing.category }}</li>
+    </ul>
+    <h4>Comments</h4>
+    <p>
+        {% if user.is_authenticated %}
+            <form action="{% url 'comment' id=listing.id %}" method="post">
+                {% csrf_token %}
+                <p class="form-group">
+                    <label for="comment">Add Comment</label>
+                    <input class="form-control" type="text" name="comment" id="comment" placeholder="Enter Comment">
+                </p>
+                <button class="btn btn-success" type="submit" >Comment</button>
+            </form>
+        {% endif %}
+    </p>
+    <ul class="list-group">
+        {% for comment in comments %}
+            <li class="list-group-item">{{ comment }}: {{ comment.comment }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
