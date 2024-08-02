@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}New Listing - CS50 Auctions{% endblock %}
+
+{% block body %}
+    <h2>New Listing</h2>
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+        <p autocorrect="off" class="form-group">
+            <label for="title">Title</label>
+            <input class="form-control" autofocus required type="text" name="title" id="title" placeholder="Enter Title">
+        </p>
+        <p autocorrect="off" class="form-group">
+            <label for="description">Description</label>
+            <input class="form-control" required type="text" name="description" id="description" placeholder="Enter Description">
+        </p>
+        <p autocorrect="off" class="form-group">
+            <label for="price">Price</label>
+            <input class="form-control" required type="number" name="price" id="price" placeholder="Enter Price" step="0.01">
+        </p>
+        <p autocorrect="off" class="form-group">
+            <label for="image">Image</label>
+            <input class="form-control" type="text" name="image" id="image" placeholder="Enter Optimal Image URL">
+        </p>
+        <p autocorrect="off" class="form-group">
+            <label for="category">Category</label>
+            <select class="form-select"name="category" id="category">
+                {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+{% endblock %}
