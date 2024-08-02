@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}Categories - CS50 Auctions{% endblock %}
+
+{% block body %}
+    <h2>Find Active Listings by Category</h2>
+    <form action="{% url 'categorize' %}" method="post">
+        {% csrf_token %}
+        <p class="form-group">
+            <label for="category">Select a Category</label>
+            <select class="form-select" name="category" id="category">
+                {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <button type="submit" class="btn btn-warning">Find</button>
+    </form>
+{% endblock %}
