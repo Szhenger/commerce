@@ -101,7 +101,7 @@ Admins should be able to:
 * View, add, edit, and delete any bids made on the site.
 * View, add, edit, and delete any comments on auction listings.
 
-## Credit
+## Credit and Disclaimer
 
-This problem was originally proposed by [CS50's Web Programming with Python and JavaScript](https://cs50.harvard.edu/web/2020/projects/2/commerce/).
+This problem was originally proposed by [CS50's Web Programming with Python and JavaScript](https://cs50.harvard.edu/web/2020/projects/2/commerce/) and any solution here is for educational purposes only.
 
